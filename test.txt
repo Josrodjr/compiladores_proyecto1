@@ -1,0 +1,8 @@
+class Program {
+    void help(){
+        int a1 = 1;
+        a1 = 5;
+	int a2 = 2;
+	a2 = 6;
+    }
+}
