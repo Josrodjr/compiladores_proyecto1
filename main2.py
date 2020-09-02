@@ -1,4 +1,4 @@
-from tables import Tabla_simbolos, Tabla_tipos
+from tables import Tabla_simbolos, Tabla_tipos, Tabla_ambitos
 import tkinter as tk					 
 from tkinter import ttk 
 
@@ -17,6 +17,11 @@ test_table2.create_entry('string', 8, 'generico')
 test_table2.create_entry('yep', 1, 'struct')
 
 # test_table2.print_table()
+
+test_table3 = Tabla_ambitos()
+
+test_table3.create_entry('Program', 'none', 'class')
+test_table3.create_entry('mystruct', 'none', 'struct')
 
 # -------------------------------------------- root ---------------------------------------------- 
 
@@ -43,10 +48,11 @@ def save_data(container):
 def fill_tables(container):
     simbolos_str = "Tabla de Simbolos \n"
     tipos_str = "Tabla de Tipos \n"
-    # scopes_str = "Tabla de scopes \n"
+    ambitos_str = "Tabla de Ambitos \n"
 
     simbolos_value = test_table.return_table()
     tipos_value = test_table2.return_table()
+    ambitos_value = test_table3.return_table()
 
     # SIMBOLOS
     container.insert(tk.END, simbolos_str)
@@ -56,6 +62,11 @@ def fill_tables(container):
     container.insert(tk.END, "\n")
     container.insert(tk.END, tipos_str)
     container.insert(tk.END, tipos_value)
+
+    # AMBITOS
+    container.insert(tk.END, "\n")
+    container.insert(tk.END, ambitos_str)
+    container.insert(tk.END, ambitos_value)
 
 
 # -------------------------------------------- tab1---------------------------------------------- 

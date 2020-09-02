@@ -1,0 +1,4 @@
+// generate the antlr files with the visitor
+
+java -jar C:\Javalib\antlr-4.8-complete.jar -Dlanguage=Python3 ../decaf.g4
+

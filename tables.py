@@ -110,4 +110,53 @@ class Tabla_tipos:
         return tabulate(tabulate_matrix, headers=['id', 'nombre', 'tamaño', 'tipo'], tablefmt='grid')
 
 
+class Tabla_ambitos:
+    current_id = 0
+    t_id = []
+    nombre = []
+    tipo = []
+    padre = []
+
+
+    def __init__(self):
+        self.current_id = 0
+        self.t_id = []
+        self.nombre = []
+        self.tipo = []
+        self.padre = []
+
+    def insert_nombre(self, no):
+        self.nombre.append(no)
+
+    def insert_padre(self, pa):
+        self.padre.append(pa)
+
+    def insert_tipo(self, ti):
+        self.tipo.append(ti)
+    
+    def assign_id(self):
+        self.t_id.append(self.current_id)
+        self.current_id = self.current_id + 1
+
+    def create_entry(self, no, pa, ti):
+        self.assign_id()
+
+        self.insert_nombre(no)
+        self.insert_padre(pa)
+        self.insert_tipo(ti)
+    
+    def print_table(self):
+        tabulate_matrix = []
+        for i in range(len(self.nombre)):
+            tabulate_matrix.append([self.t_id[i], self.nombre[i], self.tipo[i], self.padre[i]])
+        print('table name: Ambitos')
+        print(tabulate(tabulate_matrix, headers=['id', 'nombre', 'tipo', 'padre'], tablefmt='github'))
+
+    def return_table(self):
+        tabulate_matrix = []
+        for i in range(len(self.nombre)):
+            tabulate_matrix.append([self.t_id[i], self.nombre[i], self.tipo[i], self.padre[i]])
+        return tabulate(tabulate_matrix, headers=['id', 'nombre', 'tipo', 'padre'], tablefmt='grid')
+
+
     
