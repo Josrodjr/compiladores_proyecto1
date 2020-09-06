@@ -1,6 +1,11 @@
 class Program {
-    
+    struct testerino {
+        int asdf;
+        int asdfas;
+    }
+
     int welp(int yes int no[]) {
+        struct testerino meeh;
         char test2[5];
         return test2;
     }

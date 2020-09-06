@@ -2,6 +2,7 @@ from tabulate import tabulate
 
 class Tabla_simbolos:
     current_id = 0
+    current_location = 0
     t_name = ''
     t_id = []
     simbolo = []
@@ -13,6 +14,7 @@ class Tabla_simbolos:
     def __init__(self, name):
         self.t_name = name
         self.current_id = 0
+        self.current_location = 0
         self.simbolo = []
         self.location = []
         self.number_of = []
@@ -38,6 +40,12 @@ class Tabla_simbolos:
         self.t_id.append(self.current_id)
         self.current_id = self.current_id + 1
 
+    def determine_location(self, type_size, count):
+        found_location = self.current_location
+        new_location = self.current_location + type_size*count
+        self.current_location = new_location
+        return found_location
+
     def create_entry(self, s, t, a, lo, no):
         self.assign_id()
         
@@ -45,7 +53,7 @@ class Tabla_simbolos:
         self.insert_tipo(t)
         self.insert_ambito(a)
 
-        self.insert_location(lo)
+        self.insert_location(self.determine_location(lo, no))
         self.insert_number_of(no)
     
     def print_table(self):
@@ -95,6 +103,30 @@ class Tabla_tipos:
         self.insert_nombre(no)
         self.insert_tamanio(ta)
         self.insert_tipo(ti)
+
+    def generate_default_values(self):
+        self.create_entry('int', 4, 'generico')
+        self.create_entry('char', 1, 'generico')
+        self.create_entry('boolean', 1, 'generico')
+        self.create_entry('void', 0, 'generico')
+        self.create_entry('struct', 4, 'generico')
+
+    def search_type(self, typename):
+        curr_index = 0
+        for value in self.nombre:
+            if value == typename:
+                return curr_index
+            else:
+                curr_index += 1
+        return -1
+
+    def search_size(self, typeid):
+        def_size = 0
+        for index in range(len(self.t_id)):
+            if self.t_id[index] == typeid:
+                def_size = self.tamanio[index]
+        return def_size
+            
     
     def print_table(self):
         tabulate_matrix = []
@@ -144,6 +176,18 @@ class Tabla_ambitos:
         self.insert_nombre(no)
         self.insert_padre(pa)
         self.insert_tipo(ti)
+
+    def generate_default(self, void_type):
+        self.create_entry('Program', 'none', void_type)
+
+    def search_ambito(self, ambitoname):
+        curr_index = 0
+        for value in self.nombre:
+            if value == ambitoname:
+                return curr_index
+            else:
+                curr_index += 1
+        return -1
     
     def print_table(self):
         tabulate_matrix = []

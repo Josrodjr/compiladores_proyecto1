@@ -91,5 +91,4 @@ reprocess_button.grid(column = 0, row = 3)
 tables_result = tk.Text(tab2)
 tables_result.grid(column = 0, row = 1)
 
-
 root.mainloop() 
