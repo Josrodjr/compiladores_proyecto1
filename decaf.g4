@@ -41,16 +41,19 @@ eq_op : '==' | '!=';
 cond_op : '&&' | '||';
 literal : int_Literal | char_Literal | bool_Literal;
 int_Literal : NUM;
-char_Literal : '"' CHAR '"';
+char_Literal : CHAR ;
 bool_Literal : 'true' | 'false';
 
 
 // LEXER RULES
 
 fragment DIGIT: [0-9];
-LETTER: [a-z] | [A-Z];
-BLANK: [ \t\r\n]+ -> skip ;
 
-ID: LETTER (LETTER | DIGIT)*;
+fragment LETTER: [a-z] | [A-Z];
 NUM: DIGIT (DIGIT)*;
-CHAR: LETTER;
+ID: LETTER (LETTER | DIGIT)*;
+CHAR: '\''LETTER'\'';
+BLANK: [ \t\r\n\f]+ -> skip ;
+
+
+

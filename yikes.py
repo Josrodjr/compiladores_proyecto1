@@ -83,3 +83,47 @@ class SymbolTableBuilder(ParseTreeListener):
 
 # if __name__ == '__main__':
 #     main()
+
+
+
+# # generate dummy tables
+
+# test_table = Tabla_simbolos('global')
+
+# test_table.create_entry('value', 0, 'global', 0, 1)
+# test_table.create_entry('test', 1, 'global', 8, 1)
+
+# # test_table.print_table()
+
+# test_table2 = Tabla_tipos()
+
+# test_table2.create_entry('string', 8, 'generico')
+# test_table2.create_entry('yep', 1, 'struct')
+
+# # test_table2.print_table()
+
+# test_table3 = Tabla_ambitos()
+
+# test_table3.create_entry('Program', 'none', 'class')
+# test_table3.create_entry('mystruct', 'none', 'struct')
+
+
+class Program {
+    struct testerino {
+        int asdf;
+        int asdfas;
+    }
+    char ayylmao(){
+	int works;
+    }
+
+    int welp(int yes int no[]) {
+        struct testerino meeh;
+        char test2[5];
+        return test2;
+    }
+    void help(){
+        int test;
+        test = 5;
+    }
+}

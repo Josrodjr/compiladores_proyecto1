@@ -1,135 +1,25 @@
+from tables import Tabla_simbolos, Tabla_tipos, Tabla_ambitos
+import tkinter as tk					 
+from tkinter import ttk 
+
+# antlr generatio files
 import antlr4 as antlr4
 from antlr_gen.decafLexer import decafLexer
 from antlr_gen.decafListener import decafListener
 from antlr_gen.decafParser import decafParser
 from antlr_gen.decafVisitor import decafVisitor
-from antlr4.tree.Trees import Trees
 import sys
 
-import codecs
-
-# import the tables we are going to use to check
-from tables import Tabla_simbolos, Tabla_tipos, Tabla_ambitos
-
-class EvalVisitor(decafVisitor):
-    # declare the tables
-    t_simbolos = 0
-    t_tipos = 0
-    t_ambitos = 0
-
-    def __init__(self):
-        self.t_simbolos = Tabla_simbolos('Global')
-        self.t_tipos = Tabla_tipos()
-        self.t_ambitos = Tabla_ambitos()
-
-    # -------------------------------------------- METHOD DECLARATION ---------------------------------------------- 
-
-    # def visitStatement(self, ctx):
-        # FIXME: yep cok
- 
-
-    def visitVarType(self, ctx):
-        # try and get the ID if not return only gettext
-        options = ctx.getChildCount()
-        # this is a struct
-        if options == 2:
-            return ctx.getChild(1)
-        if options == 1:
-            return ctx.getText()
-
-    def visitVarDeclaration(self, ctx):
-        # tipo = ctx.varType().getText()
-        tipo = str(self.visitVarType(ctx.varType()))
-        nombre = ctx.ID().getText()
-        arreglo = False
-        len_arr = 1
-        if ctx.getChildCount() == 6:
-            arreglo = True
-            len_arr = int(ctx.NUM().getText())
-        return [tipo, nombre, arreglo, len_arr]
-            
-
-    def visitBlockMETHOD(self, ctx, parent):
-        declarations = []
-
-        for value in ctx.varDeclaration():
-            declarations.append(self.visitVarDeclaration(value))
-        
-        # iterate over the declarations inside the method to insert into the symbol table
-        for declaration in declarations:
-            number_of = 1
-            if declaration[2] == False:
-                number_of = 1
-            if declaration[2] == True:
-                number_of = declaration[3]
-            # search the table for the type
-            tipo = self.t_tipos.search_type(declaration[0])
-            # TODO: if -1 raise NON DEFINED VAR
-            # serach the ambito for the block
-            padre = self.t_ambitos.search_ambito(parent)
-            # TODO: if -1 raise NON DEFINED PARENT
-
-            # search the size of the type in the table
-            tamanio = self.t_tipos.search_size(tipo)
-
-            self.t_simbolos.create_entry(declaration[1], tipo, padre, tamanio, number_of)
-
-        # for value in ctx.statement():
-        #     self.visitStatement(value)
-        # FIXME: yep cok
-
-    
-    def visitParameter(self, ctx):
-        tipo = ctx.parametertype().getText()
-        nombre = ctx.ID().getText()
-        arreglo = False
-        if ctx.getChildCount() == 4:
-            arreglo = True
-        return(tipo, nombre, arreglo)
-        
+# import the custom visitor
+from custom_visitor import EvalVisitor
 
 
-    def visitMethoDeclaration(self, ctx):
-        tipo = ctx.methodType().getText()
-        nombre = ctx.ID().getText()
-        parameter_list = []
-
-        parameter_context = ctx.parameter()
-        if parameter_context != []:
-            for value in parameter_context:
-                parameter_list.append(self.visitParameter(value))
-
-        # search the table for the type
-        t_tipo = self.t_tipos.search_type(tipo)
-        
-        # insert into table de ambitos
-        self.t_ambitos.create_entry(nombre, 'Program', t_tipo)
-
-        block_context = ctx.block()
-        self.visitBlockMETHOD(block_context, nombre)
-
-    # -------------------------------------------- STRUCT DECLARATION ---------------------------------------------- 
-    def visitStructDeclaration(self, ctx):
-        nombre = ctx.ID().getText()
-
-        vardeclar_context = ctx.varDeclaration()
-
-        if vardeclar_context != []:
-            # get the length of variables inside of the struct for memory usage calculation
-            n_vars = len(vardeclar_context)
-
-            # insert into the tokens using the values known til now
-            self.t_tipos.create_entry(nombre, 4*n_vars, 'definido')
-        else:
-            line = ctx.start.line
-            column = ctx.start.column
-            # TODO raise an exeption EMPTY STRUCT
-
-    # -------------------------------------------- BLOCK DECLARATION ---------------------------------------------- 
+# -------------------------------------------- instantiations  ---------------------------------------------- 
 
 
-def main():
-    
+# -------------------------------------------- visitor ---------------------------------------------- 
+
+def init_visitor():
     # abrir el archivo de prueba para tokens
     with open('test.txt', 'r') as myfile:
         data = myfile.read()
@@ -142,21 +32,94 @@ def main():
 
     tree = parser.program()
 
-    # print(Trees.toStringTree(tree, None, parser))
-
-    answer = EvalVisitor()
+    c_visitor = EvalVisitor()
     
     # generate the basic types
-    answer.t_tipos.generate_default_values()
+    c_visitor.t_tipos.generate_default_values()
     # generate the default ambito
-    answer.t_ambitos.generate_default(answer.t_tipos.search_type('void'))
+    c_visitor.t_ambitos.generate_default(c_visitor.t_tipos.search_type('void'))
 
     # Traverse the tree
-    answer.visit(tree)
+    c_visitor.visit(tree)
     
-    answer.t_simbolos.print_table()
-    answer.t_tipos.print_table()
-    answer.t_ambitos.print_table()
+    return c_visitor
 
-if __name__ == '__main__':
-    main()
+
+# -------------------------------------------- root ---------------------------------------------- 
+
+root = tk.Tk() 
+root.title("yep") 
+tabControl = ttk.Notebook(root) 
+root.geometry("700x600")
+
+tab1 = ttk.Frame(tabControl) 
+tab2 = ttk.Frame(tabControl) 
+
+tabControl.add(tab1, text ='Codigo') 
+tabControl.add(tab2, text ='Tablas de simbolos') 
+tabControl.pack(expand = 1, fill ="both") 
+
+# -------------------------------------------- funcs ---------------------------------------------- 
+def save_data(container):
+    code_text = container.get('1.0', tk.END)
+    # open file to save
+    file = open('test.txt', 'w')
+    file.write(code_text)
+
+
+def fill_tables(container):
+    # clear the previous data in the container
+    clear_input(container)
+
+    # restart the values in the visitor
+    c_visitor = init_visitor()
+
+    simbolos_str = "Tabla de Simbolos \n"
+    tipos_str = "Tabla de Tipos \n"
+    ambitos_str = "Tabla de Ambitos \n"
+
+    simbolos_value = c_visitor.t_simbolos.return_table()
+    tipos_value = c_visitor.t_tipos.return_table()
+    ambitos_value = c_visitor.t_ambitos.return_table()
+
+    # SIMBOLOS
+    container.insert(tk.END, simbolos_str)
+    container.insert(tk.END, simbolos_value)
+
+    # TIPOS
+    container.insert(tk.END, "\n")
+    container.insert(tk.END, tipos_str)
+    container.insert(tk.END, tipos_value)
+
+    # AMBITOS
+    container.insert(tk.END, "\n")
+    container.insert(tk.END, ambitos_str)
+    container.insert(tk.END, ambitos_value)
+
+
+def clear_input(container):
+    # container.delete(0, tk.END)
+    container.delete("1.0", tk.END)
+
+# -------------------------------------------- tab1---------------------------------------------- 
+code_inserted = tk.Text(tab1)
+code_inserted.grid(column=0, row=1)
+# open and insert the test code found in the txt
+with open('test.txt', 'r') as myfile:
+    data = myfile.read()
+# insert at the end
+code_inserted.insert(tk.END, data)
+
+# insert a button for saving the changes
+save_button = tk.Button(tab1, text="Save Changes", command=lambda : save_data(code_inserted) )
+save_button.grid(column = 0, row = 2)
+
+# insert a button for new processing
+reprocess_button = tk.Button(tab1, text="Reprocess", command=lambda: fill_tables(tables_result) )
+reprocess_button.grid(column = 0, row = 3)
+
+# -------------------------------------------- tab2---------------------------------------------- 
+tables_result = tk.Text(tab2)
+tables_result.grid(column = 0, row = 1)
+
+root.mainloop() 
