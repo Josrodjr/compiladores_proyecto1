@@ -54,9 +54,11 @@ root.geometry("700x600")
 
 tab1 = ttk.Frame(tabControl) 
 tab2 = ttk.Frame(tabControl) 
+tab3 = ttk.Frame(tabControl)
 
 tabControl.add(tab1, text ='Codigo') 
 tabControl.add(tab2, text ='Tablas de simbolos') 
+tabControl.add(tab3, text ='Errores')
 tabControl.pack(expand = 1, fill ="both") 
 
 # -------------------------------------------- funcs ---------------------------------------------- 
@@ -67,9 +69,10 @@ def save_data(container):
     file.write(code_text)
 
 
-def fill_tables(container):
+def fill_tables(container, container_2):
     # clear the previous data in the container
     clear_input(container)
+    clear_input(container_2)
 
     # restart the values in the visitor
     c_visitor = init_visitor()
@@ -96,6 +99,17 @@ def fill_tables(container):
     container.insert(tk.END, ambitos_str)
     container.insert(tk.END, ambitos_value)
 
+    # insert the errors found
+    error_names = c_visitor.errors.error_names
+    found_descriptions = c_visitor.errors.found_descriptions
+
+    container_2.insert(tk.END, 'RESULTS:')
+
+    for i in range(len(error_names)):
+        # insert the error and description
+        container_2.insert(tk.END, "\n")
+        container_2.insert(tk.END, 'ERROR: ' + str(error_names[i]) + ' ' + 'LINE: ' + str(found_descriptions[i][0]) + ' ' + 'COLUMN: ' + str(found_descriptions[i][1]))
+
 
 def clear_input(container):
     # container.delete(0, tk.END)
@@ -115,11 +129,15 @@ save_button = tk.Button(tab1, text="Save Changes", command=lambda : save_data(co
 save_button.grid(column = 0, row = 2)
 
 # insert a button for new processing
-reprocess_button = tk.Button(tab1, text="Reprocess", command=lambda: fill_tables(tables_result) )
+reprocess_button = tk.Button(tab1, text="Reprocess", command=lambda: fill_tables(tables_result, errors_result) )
 reprocess_button.grid(column = 0, row = 3)
 
 # -------------------------------------------- tab2---------------------------------------------- 
 tables_result = tk.Text(tab2)
 tables_result.grid(column = 0, row = 1)
+
+# -------------------------------------------- tab3 ----------------------------------------------
+errors_result = tk.Text(tab3)
+errors_result.grid(column = 0, row = 1)
 
 root.mainloop() 

@@ -11,5 +11,3 @@ class Errors():
         self.error_names.append(error_name)
         self.found_descriptions.append(error_description)
 
-
-

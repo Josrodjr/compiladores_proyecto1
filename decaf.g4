@@ -13,23 +13,23 @@ methodType : 'int' | 'char' | 'boolean'| 'void';
 parameter : parametertype ID | parametertype ID '[' ']';
 parametertype : 'int' | 'char' | 'boolean';
 block: '{' (varDeclaration)* (statement)* '}';
-statement : 'if' '(' expression ')' block ('else' block)?
-| 'while' '(' expression ')' block
-| 'return' (expression)? ';'
-| methodCall ';'
-| block
-| location '=' expression ';'
-| (expression)? ';'
+statement : 'if' '(' expression ')' block ('else' block)? #ifstmt
+| 'while' '(' expression ')' block #whilestmt
+| 'return' (expression)? ';' #returnstmt
+| methodCall ';' #methodstmt
+| block #blockstmt
+| location '=' expression ';' #locationstmt
+| (expression)? ';'#expressionstmt
 ;
 location : (ID | ID '[' expression ']') ('.' location)?;
-expression : location
-| methodCall
-| literal
-| expression p_arith_op expression
-| expression op expression
-| '-' expression
-| '!' expression
-| '(' expression ')'
+expression : location #locexpr
+| methodCall #methodexpr
+| literal #literalexpr
+| expression p_arith_op expression #p_arithexpr
+| expression op expression #opexpr
+| '-' expression #minusexpr
+| '!' expression #factoexpr
+| '(' expression ')' #corchexpr
 ;
 methodCall : ID '(' (arg)* ')';
 arg : expression;

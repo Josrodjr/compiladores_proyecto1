@@ -127,3 +127,36 @@ class Program {
         test = 5;
     }
 }
+
+# def main():
+    
+#     # abrir el archivo de prueba para tokens
+#     with open('test.txt', 'r') as myfile:
+#         data = myfile.read()
+
+#     actual_data = antlr4.InputStream(data)
+#     # mandar al lexer el input del inpuntstream
+#     lexer = decafLexer(actual_data)
+#     stream = antlr4.CommonTokenStream(lexer)
+#     parser = decafParser(stream)
+
+#     tree = parser.program()
+
+#     # print(Trees.toStringTree(tree, None, parser))
+
+#     answer = EvalVisitor()
+    
+#     # generate the basic types
+#     answer.t_tipos.generate_default_values()
+#     # generate the default ambito
+#     answer.t_ambitos.generate_default(answer.t_tipos.search_type('void'))
+
+#     # Traverse the tree
+#     answer.visit(tree)
+    
+#     answer.t_simbolos.print_table()
+#     answer.t_tipos.print_table()
+#     answer.t_ambitos.print_table()
+
+# if __name__ == '__main__':
+#     main()

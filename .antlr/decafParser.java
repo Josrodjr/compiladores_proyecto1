@@ -679,6 +679,26 @@ public class decafParser extends Parser {
 	}
 
 	public static class StatementContext extends ParserRuleContext {
+		public StatementContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_statement; }
+	 
+		public StatementContext() { }
+		public void copyFrom(StatementContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class WhilestmtContext extends StatementContext {
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
+		}
+		public BlockContext block() {
+			return getRuleContext(BlockContext.class,0);
+		}
+		public WhilestmtContext(StatementContext ctx) { copyFrom(ctx); }
+	}
+	public static class IfstmtContext extends StatementContext {
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
@@ -688,16 +708,40 @@ public class decafParser extends Parser {
 		public BlockContext block(int i) {
 			return getRuleContext(BlockContext.class,i);
 		}
-		public MethodCallContext methodCall() {
-			return getRuleContext(MethodCallContext.class,0);
+		public IfstmtContext(StatementContext ctx) { copyFrom(ctx); }
+	}
+	public static class ExpressionstmtContext extends StatementContext {
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
 		}
+		public ExpressionstmtContext(StatementContext ctx) { copyFrom(ctx); }
+	}
+	public static class LocationstmtContext extends StatementContext {
 		public LocationContext location() {
 			return getRuleContext(LocationContext.class,0);
 		}
-		public StatementContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
 		}
-		@Override public int getRuleIndex() { return RULE_statement; }
+		public LocationstmtContext(StatementContext ctx) { copyFrom(ctx); }
+	}
+	public static class ReturnstmtContext extends StatementContext {
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
+		}
+		public ReturnstmtContext(StatementContext ctx) { copyFrom(ctx); }
+	}
+	public static class BlockstmtContext extends StatementContext {
+		public BlockContext block() {
+			return getRuleContext(BlockContext.class,0);
+		}
+		public BlockstmtContext(StatementContext ctx) { copyFrom(ctx); }
+	}
+	public static class MethodstmtContext extends StatementContext {
+		public MethodCallContext methodCall() {
+			return getRuleContext(MethodCallContext.class,0);
+		}
+		public MethodstmtContext(StatementContext ctx) { copyFrom(ctx); }
 	}
 
 	public final StatementContext statement() throws RecognitionException {
@@ -709,6 +753,7 @@ public class decafParser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,12,_ctx) ) {
 			case 1:
+				_localctx = new IfstmtContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(141);
@@ -736,6 +781,7 @@ public class decafParser extends Parser {
 				}
 				break;
 			case 2:
+				_localctx = new WhilestmtContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(150);
@@ -751,6 +797,7 @@ public class decafParser extends Parser {
 				}
 				break;
 			case 3:
+				_localctx = new ReturnstmtContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(156);
@@ -770,6 +817,7 @@ public class decafParser extends Parser {
 				}
 				break;
 			case 4:
+				_localctx = new MethodstmtContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
 				setState(161);
@@ -779,6 +827,7 @@ public class decafParser extends Parser {
 				}
 				break;
 			case 5:
+				_localctx = new BlockstmtContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
 				setState(164);
@@ -786,6 +835,7 @@ public class decafParser extends Parser {
 				}
 				break;
 			case 6:
+				_localctx = new LocationstmtContext(_localctx);
 				enterOuterAlt(_localctx, 6);
 				{
 				setState(165);
@@ -799,6 +849,7 @@ public class decafParser extends Parser {
 				}
 				break;
 			case 7:
+				_localctx = new ExpressionstmtContext(_localctx);
 				enterOuterAlt(_localctx, 7);
 				{
 				setState(171);
@@ -896,15 +947,65 @@ public class decafParser extends Parser {
 	}
 
 	public static class ExpressionContext extends ParserRuleContext {
-		public LocationContext location() {
-			return getRuleContext(LocationContext.class,0);
+		public ExpressionContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
 		}
-		public MethodCallContext methodCall() {
-			return getRuleContext(MethodCallContext.class,0);
+		@Override public int getRuleIndex() { return RULE_expression; }
+	 
+		public ExpressionContext() { }
+		public void copyFrom(ExpressionContext ctx) {
+			super.copyFrom(ctx);
 		}
+	}
+	public static class MinusexprContext extends ExpressionContext {
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
+		}
+		public MinusexprContext(ExpressionContext ctx) { copyFrom(ctx); }
+	}
+	public static class LiteralexprContext extends ExpressionContext {
 		public LiteralContext literal() {
 			return getRuleContext(LiteralContext.class,0);
 		}
+		public LiteralexprContext(ExpressionContext ctx) { copyFrom(ctx); }
+	}
+	public static class FactoexprContext extends ExpressionContext {
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
+		}
+		public FactoexprContext(ExpressionContext ctx) { copyFrom(ctx); }
+	}
+	public static class OpexprContext extends ExpressionContext {
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public OpContext op() {
+			return getRuleContext(OpContext.class,0);
+		}
+		public OpexprContext(ExpressionContext ctx) { copyFrom(ctx); }
+	}
+	public static class MethodexprContext extends ExpressionContext {
+		public MethodCallContext methodCall() {
+			return getRuleContext(MethodCallContext.class,0);
+		}
+		public MethodexprContext(ExpressionContext ctx) { copyFrom(ctx); }
+	}
+	public static class LocexprContext extends ExpressionContext {
+		public LocationContext location() {
+			return getRuleContext(LocationContext.class,0);
+		}
+		public LocexprContext(ExpressionContext ctx) { copyFrom(ctx); }
+	}
+	public static class CorchexprContext extends ExpressionContext {
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
+		}
+		public CorchexprContext(ExpressionContext ctx) { copyFrom(ctx); }
+	}
+	public static class P_arithexprContext extends ExpressionContext {
 		public List<ExpressionContext> expression() {
 			return getRuleContexts(ExpressionContext.class);
 		}
@@ -914,13 +1015,7 @@ public class decafParser extends Parser {
 		public P_arith_opContext p_arith_op() {
 			return getRuleContext(P_arith_opContext.class,0);
 		}
-		public OpContext op() {
-			return getRuleContext(OpContext.class,0);
-		}
-		public ExpressionContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_expression; }
+		public P_arithexprContext(ExpressionContext ctx) { copyFrom(ctx); }
 	}
 
 	public final ExpressionContext expression() throws RecognitionException {
@@ -943,24 +1038,37 @@ public class decafParser extends Parser {
 			switch ( getInterpreter().adaptivePredict(_input,15,_ctx) ) {
 			case 1:
 				{
+				_localctx = new LocexprContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+
 				setState(189);
 				location();
 				}
 				break;
 			case 2:
 				{
+				_localctx = new MethodexprContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 				setState(190);
 				methodCall();
 				}
 				break;
 			case 3:
 				{
+				_localctx = new LiteralexprContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 				setState(191);
 				literal();
 				}
 				break;
 			case 4:
 				{
+				_localctx = new MinusexprContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 				setState(192);
 				match(T__20);
 				setState(193);
@@ -969,6 +1077,9 @@ public class decafParser extends Parser {
 				break;
 			case 5:
 				{
+				_localctx = new FactoexprContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 				setState(194);
 				match(T__21);
 				setState(195);
@@ -977,6 +1088,9 @@ public class decafParser extends Parser {
 				break;
 			case 6:
 				{
+				_localctx = new CorchexprContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
 				setState(196);
 				match(T__12);
 				setState(197);
@@ -1000,7 +1114,7 @@ public class decafParser extends Parser {
 					switch ( getInterpreter().adaptivePredict(_input,16,_ctx) ) {
 					case 1:
 						{
-						_localctx = new ExpressionContext(_parentctx, _parentState);
+						_localctx = new P_arithexprContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(202);
 						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
@@ -1012,7 +1126,7 @@ public class decafParser extends Parser {
 						break;
 					case 2:
 						{
-						_localctx = new ExpressionContext(_parentctx, _parentState);
+						_localctx = new OpexprContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(206);
 						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");

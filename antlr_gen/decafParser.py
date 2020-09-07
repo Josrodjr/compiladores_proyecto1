@@ -958,9 +958,52 @@ class decafParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
+
+        def getRuleIndex(self):
+            return decafParser.RULE_statement
+
+     
+        def copyFrom(self, ctx:ParserRuleContext):
+            super().copyFrom(ctx)
+
+
+
+    class WhilestmtContext(StatementContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a decafParser.StatementContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
         def expression(self):
             return self.getTypedRuleContext(decafParser.ExpressionContext,0)
 
+        def block(self):
+            return self.getTypedRuleContext(decafParser.BlockContext,0)
+
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterWhilestmt" ):
+                listener.enterWhilestmt(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitWhilestmt" ):
+                listener.exitWhilestmt(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitWhilestmt" ):
+                return visitor.visitWhilestmt(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class IfstmtContext(StatementContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a decafParser.StatementContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def expression(self):
+            return self.getTypedRuleContext(decafParser.ExpressionContext,0)
 
         def block(self, i:int=None):
             if i is None:
@@ -969,31 +1012,147 @@ class decafParser ( Parser ):
                 return self.getTypedRuleContext(decafParser.BlockContext,i)
 
 
-        def methodCall(self):
-            return self.getTypedRuleContext(decafParser.MethodCallContext,0)
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterIfstmt" ):
+                listener.enterIfstmt(self)
 
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitIfstmt" ):
+                listener.exitIfstmt(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitIfstmt" ):
+                return visitor.visitIfstmt(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class ExpressionstmtContext(StatementContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a decafParser.StatementContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def expression(self):
+            return self.getTypedRuleContext(decafParser.ExpressionContext,0)
+
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterExpressionstmt" ):
+                listener.enterExpressionstmt(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitExpressionstmt" ):
+                listener.exitExpressionstmt(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitExpressionstmt" ):
+                return visitor.visitExpressionstmt(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class LocationstmtContext(StatementContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a decafParser.StatementContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
 
         def location(self):
             return self.getTypedRuleContext(decafParser.LocationContext,0)
 
+        def expression(self):
+            return self.getTypedRuleContext(decafParser.ExpressionContext,0)
 
-        def getRuleIndex(self):
-            return decafParser.RULE_statement
 
         def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterStatement" ):
-                listener.enterStatement(self)
+            if hasattr( listener, "enterLocationstmt" ):
+                listener.enterLocationstmt(self)
 
         def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitStatement" ):
-                listener.exitStatement(self)
+            if hasattr( listener, "exitLocationstmt" ):
+                listener.exitLocationstmt(self)
 
         def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitStatement" ):
-                return visitor.visitStatement(self)
+            if hasattr( visitor, "visitLocationstmt" ):
+                return visitor.visitLocationstmt(self)
             else:
                 return visitor.visitChildren(self)
 
+
+    class ReturnstmtContext(StatementContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a decafParser.StatementContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def expression(self):
+            return self.getTypedRuleContext(decafParser.ExpressionContext,0)
+
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterReturnstmt" ):
+                listener.enterReturnstmt(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitReturnstmt" ):
+                listener.exitReturnstmt(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitReturnstmt" ):
+                return visitor.visitReturnstmt(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class BlockstmtContext(StatementContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a decafParser.StatementContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def block(self):
+            return self.getTypedRuleContext(decafParser.BlockContext,0)
+
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterBlockstmt" ):
+                listener.enterBlockstmt(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitBlockstmt" ):
+                listener.exitBlockstmt(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitBlockstmt" ):
+                return visitor.visitBlockstmt(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class MethodstmtContext(StatementContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a decafParser.StatementContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def methodCall(self):
+            return self.getTypedRuleContext(decafParser.MethodCallContext,0)
+
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterMethodstmt" ):
+                listener.enterMethodstmt(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitMethodstmt" ):
+                listener.exitMethodstmt(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitMethodstmt" ):
+                return visitor.visitMethodstmt(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1007,6 +1166,7 @@ class decafParser ( Parser ):
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,12,self._ctx)
             if la_ == 1:
+                localctx = decafParser.IfstmtContext(self, localctx)
                 self.enterOuterAlt(localctx, 1)
                 self.state = 141
                 self.match(decafParser.T__14)
@@ -1031,6 +1191,7 @@ class decafParser ( Parser ):
                 pass
 
             elif la_ == 2:
+                localctx = decafParser.WhilestmtContext(self, localctx)
                 self.enterOuterAlt(localctx, 2)
                 self.state = 150
                 self.match(decafParser.T__16)
@@ -1045,6 +1206,7 @@ class decafParser ( Parser ):
                 pass
 
             elif la_ == 3:
+                localctx = decafParser.ReturnstmtContext(self, localctx)
                 self.enterOuterAlt(localctx, 3)
                 self.state = 156
                 self.match(decafParser.T__17)
@@ -1061,6 +1223,7 @@ class decafParser ( Parser ):
                 pass
 
             elif la_ == 4:
+                localctx = decafParser.MethodstmtContext(self, localctx)
                 self.enterOuterAlt(localctx, 4)
                 self.state = 161
                 self.methodCall()
@@ -1069,12 +1232,14 @@ class decafParser ( Parser ):
                 pass
 
             elif la_ == 5:
+                localctx = decafParser.BlockstmtContext(self, localctx)
                 self.enterOuterAlt(localctx, 5)
                 self.state = 164
                 self.block()
                 pass
 
             elif la_ == 6:
+                localctx = decafParser.LocationstmtContext(self, localctx)
                 self.enterOuterAlt(localctx, 6)
                 self.state = 165
                 self.location()
@@ -1087,6 +1252,7 @@ class decafParser ( Parser ):
                 pass
 
             elif la_ == 7:
+                localctx = decafParser.ExpressionstmtContext(self, localctx)
                 self.enterOuterAlt(localctx, 7)
                 self.state = 171
                 self._errHandler.sync(self)
@@ -1198,17 +1364,95 @@ class decafParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def location(self):
-            return self.getTypedRuleContext(decafParser.LocationContext,0)
+
+        def getRuleIndex(self):
+            return decafParser.RULE_expression
+
+     
+        def copyFrom(self, ctx:ParserRuleContext):
+            super().copyFrom(ctx)
 
 
-        def methodCall(self):
-            return self.getTypedRuleContext(decafParser.MethodCallContext,0)
+    class MinusexprContext(ExpressionContext):
 
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a decafParser.ExpressionContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def expression(self):
+            return self.getTypedRuleContext(decafParser.ExpressionContext,0)
+
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterMinusexpr" ):
+                listener.enterMinusexpr(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitMinusexpr" ):
+                listener.exitMinusexpr(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitMinusexpr" ):
+                return visitor.visitMinusexpr(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class LiteralexprContext(ExpressionContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a decafParser.ExpressionContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
 
         def literal(self):
             return self.getTypedRuleContext(decafParser.LiteralContext,0)
 
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterLiteralexpr" ):
+                listener.enterLiteralexpr(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitLiteralexpr" ):
+                listener.exitLiteralexpr(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitLiteralexpr" ):
+                return visitor.visitLiteralexpr(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class FactoexprContext(ExpressionContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a decafParser.ExpressionContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def expression(self):
+            return self.getTypedRuleContext(decafParser.ExpressionContext,0)
+
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterFactoexpr" ):
+                listener.enterFactoexpr(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitFactoexpr" ):
+                listener.exitFactoexpr(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFactoexpr" ):
+                return visitor.visitFactoexpr(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class OpexprContext(ExpressionContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a decafParser.ExpressionContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
 
         def expression(self, i:int=None):
             if i is None:
@@ -1216,29 +1460,127 @@ class decafParser ( Parser ):
             else:
                 return self.getTypedRuleContext(decafParser.ExpressionContext,i)
 
+        def op(self):
+            return self.getTypedRuleContext(decafParser.OpContext,0)
+
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterOpexpr" ):
+                listener.enterOpexpr(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitOpexpr" ):
+                listener.exitOpexpr(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitOpexpr" ):
+                return visitor.visitOpexpr(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class MethodexprContext(ExpressionContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a decafParser.ExpressionContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def methodCall(self):
+            return self.getTypedRuleContext(decafParser.MethodCallContext,0)
+
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterMethodexpr" ):
+                listener.enterMethodexpr(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitMethodexpr" ):
+                listener.exitMethodexpr(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitMethodexpr" ):
+                return visitor.visitMethodexpr(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class LocexprContext(ExpressionContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a decafParser.ExpressionContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def location(self):
+            return self.getTypedRuleContext(decafParser.LocationContext,0)
+
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterLocexpr" ):
+                listener.enterLocexpr(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitLocexpr" ):
+                listener.exitLocexpr(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitLocexpr" ):
+                return visitor.visitLocexpr(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class CorchexprContext(ExpressionContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a decafParser.ExpressionContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def expression(self):
+            return self.getTypedRuleContext(decafParser.ExpressionContext,0)
+
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterCorchexpr" ):
+                listener.enterCorchexpr(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitCorchexpr" ):
+                listener.exitCorchexpr(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitCorchexpr" ):
+                return visitor.visitCorchexpr(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class P_arithexprContext(ExpressionContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a decafParser.ExpressionContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def expression(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(decafParser.ExpressionContext)
+            else:
+                return self.getTypedRuleContext(decafParser.ExpressionContext,i)
 
         def p_arith_op(self):
             return self.getTypedRuleContext(decafParser.P_arith_opContext,0)
 
 
-        def op(self):
-            return self.getTypedRuleContext(decafParser.OpContext,0)
-
-
-        def getRuleIndex(self):
-            return decafParser.RULE_expression
-
         def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterExpression" ):
-                listener.enterExpression(self)
+            if hasattr( listener, "enterP_arithexpr" ):
+                listener.enterP_arithexpr(self)
 
         def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitExpression" ):
-                listener.exitExpression(self)
+            if hasattr( listener, "exitP_arithexpr" ):
+                listener.exitP_arithexpr(self)
 
         def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitExpression" ):
-                return visitor.visitExpression(self)
+            if hasattr( visitor, "visitP_arithexpr" ):
+                return visitor.visitP_arithexpr(self)
             else:
                 return visitor.visitChildren(self)
 
@@ -1257,21 +1599,34 @@ class decafParser ( Parser ):
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,15,self._ctx)
             if la_ == 1:
+                localctx = decafParser.LocexprContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
+
                 self.state = 189
                 self.location()
                 pass
 
             elif la_ == 2:
+                localctx = decafParser.MethodexprContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
                 self.state = 190
                 self.methodCall()
                 pass
 
             elif la_ == 3:
+                localctx = decafParser.LiteralexprContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
                 self.state = 191
                 self.literal()
                 pass
 
             elif la_ == 4:
+                localctx = decafParser.MinusexprContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
                 self.state = 192
                 self.match(decafParser.T__20)
                 self.state = 193
@@ -1279,6 +1634,9 @@ class decafParser ( Parser ):
                 pass
 
             elif la_ == 5:
+                localctx = decafParser.FactoexprContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
                 self.state = 194
                 self.match(decafParser.T__21)
                 self.state = 195
@@ -1286,6 +1644,9 @@ class decafParser ( Parser ):
                 pass
 
             elif la_ == 6:
+                localctx = decafParser.CorchexprContext(self, localctx)
+                self._ctx = localctx
+                _prevctx = localctx
                 self.state = 196
                 self.match(decafParser.T__12)
                 self.state = 197
@@ -1308,7 +1669,7 @@ class decafParser ( Parser ):
                     self._errHandler.sync(self)
                     la_ = self._interp.adaptivePredict(self._input,16,self._ctx)
                     if la_ == 1:
-                        localctx = decafParser.ExpressionContext(self, _parentctx, _parentState)
+                        localctx = decafParser.P_arithexprContext(self, decafParser.ExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
                         self.state = 202
                         if not self.precpred(self._ctx, 5):
@@ -1321,7 +1682,7 @@ class decafParser ( Parser ):
                         pass
 
                     elif la_ == 2:
-                        localctx = decafParser.ExpressionContext(self, _parentctx, _parentState)
+                        localctx = decafParser.OpexprContext(self, decafParser.ExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expression)
                         self.state = 206
                         if not self.precpred(self._ctx, 4):

@@ -20,11 +20,12 @@ void error()
 {
 	char c;
 	m.b[10] = 5;
-	b.c.a = 'c';
-	if (1) { a = 4;} else {m = 3;}
-	c = factorial (c);
-	return m;
+	b.c.a = 'c'; //nunca fue inicializada
+	if (1) //no es booleano { a = 4; //no fue inicializada} else {m = 3; //no fue inicializada //m es tipo struct}
+	c = factorial (c); //factorial es un INT entrando a un CHAR
+	return m; //error es de tipo void y esta regresando algo
 }
+
 
 
 int factorial(int n)

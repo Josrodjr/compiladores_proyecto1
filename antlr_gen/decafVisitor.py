@@ -59,8 +59,38 @@ class decafVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by decafParser#statement.
-    def visitStatement(self, ctx:decafParser.StatementContext):
+    # Visit a parse tree produced by decafParser#ifstmt.
+    def visitIfstmt(self, ctx:decafParser.IfstmtContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by decafParser#whilestmt.
+    def visitWhilestmt(self, ctx:decafParser.WhilestmtContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by decafParser#returnstmt.
+    def visitReturnstmt(self, ctx:decafParser.ReturnstmtContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by decafParser#methodstmt.
+    def visitMethodstmt(self, ctx:decafParser.MethodstmtContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by decafParser#blockstmt.
+    def visitBlockstmt(self, ctx:decafParser.BlockstmtContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by decafParser#locationstmt.
+    def visitLocationstmt(self, ctx:decafParser.LocationstmtContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by decafParser#expressionstmt.
+    def visitExpressionstmt(self, ctx:decafParser.ExpressionstmtContext):
         return self.visitChildren(ctx)
 
 
@@ -69,8 +99,43 @@ class decafVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by decafParser#expression.
-    def visitExpression(self, ctx:decafParser.ExpressionContext):
+    # Visit a parse tree produced by decafParser#minusexpr.
+    def visitMinusexpr(self, ctx:decafParser.MinusexprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by decafParser#literalexpr.
+    def visitLiteralexpr(self, ctx:decafParser.LiteralexprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by decafParser#factoexpr.
+    def visitFactoexpr(self, ctx:decafParser.FactoexprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by decafParser#opexpr.
+    def visitOpexpr(self, ctx:decafParser.OpexprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by decafParser#methodexpr.
+    def visitMethodexpr(self, ctx:decafParser.MethodexprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by decafParser#locexpr.
+    def visitLocexpr(self, ctx:decafParser.LocexprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by decafParser#corchexpr.
+    def visitCorchexpr(self, ctx:decafParser.CorchexprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by decafParser#p_arithexpr.
+    def visitP_arithexpr(self, ctx:decafParser.P_arithexprContext):
         return self.visitChildren(ctx)
 
 

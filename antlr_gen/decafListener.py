@@ -98,12 +98,66 @@ class decafListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by decafParser#statement.
-    def enterStatement(self, ctx:decafParser.StatementContext):
+    # Enter a parse tree produced by decafParser#ifstmt.
+    def enterIfstmt(self, ctx:decafParser.IfstmtContext):
         pass
 
-    # Exit a parse tree produced by decafParser#statement.
-    def exitStatement(self, ctx:decafParser.StatementContext):
+    # Exit a parse tree produced by decafParser#ifstmt.
+    def exitIfstmt(self, ctx:decafParser.IfstmtContext):
+        pass
+
+
+    # Enter a parse tree produced by decafParser#whilestmt.
+    def enterWhilestmt(self, ctx:decafParser.WhilestmtContext):
+        pass
+
+    # Exit a parse tree produced by decafParser#whilestmt.
+    def exitWhilestmt(self, ctx:decafParser.WhilestmtContext):
+        pass
+
+
+    # Enter a parse tree produced by decafParser#returnstmt.
+    def enterReturnstmt(self, ctx:decafParser.ReturnstmtContext):
+        pass
+
+    # Exit a parse tree produced by decafParser#returnstmt.
+    def exitReturnstmt(self, ctx:decafParser.ReturnstmtContext):
+        pass
+
+
+    # Enter a parse tree produced by decafParser#methodstmt.
+    def enterMethodstmt(self, ctx:decafParser.MethodstmtContext):
+        pass
+
+    # Exit a parse tree produced by decafParser#methodstmt.
+    def exitMethodstmt(self, ctx:decafParser.MethodstmtContext):
+        pass
+
+
+    # Enter a parse tree produced by decafParser#blockstmt.
+    def enterBlockstmt(self, ctx:decafParser.BlockstmtContext):
+        pass
+
+    # Exit a parse tree produced by decafParser#blockstmt.
+    def exitBlockstmt(self, ctx:decafParser.BlockstmtContext):
+        pass
+
+
+    # Enter a parse tree produced by decafParser#locationstmt.
+    def enterLocationstmt(self, ctx:decafParser.LocationstmtContext):
+        pass
+
+    # Exit a parse tree produced by decafParser#locationstmt.
+    def exitLocationstmt(self, ctx:decafParser.LocationstmtContext):
+        pass
+
+
+    # Enter a parse tree produced by decafParser#expressionstmt.
+    def enterExpressionstmt(self, ctx:decafParser.ExpressionstmtContext):
+        pass
+
+    # Exit a parse tree produced by decafParser#expressionstmt.
+    def exitExpressionstmt(self, ctx:decafParser.ExpressionstmtContext):
         pass
 
 
@@ -116,12 +170,75 @@ class decafListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by decafParser#expression.
-    def enterExpression(self, ctx:decafParser.ExpressionContext):
+    # Enter a parse tree produced by decafParser#minusexpr.
+    def enterMinusexpr(self, ctx:decafParser.MinusexprContext):
         pass
 
-    # Exit a parse tree produced by decafParser#expression.
-    def exitExpression(self, ctx:decafParser.ExpressionContext):
+    # Exit a parse tree produced by decafParser#minusexpr.
+    def exitMinusexpr(self, ctx:decafParser.MinusexprContext):
+        pass
+
+
+    # Enter a parse tree produced by decafParser#literalexpr.
+    def enterLiteralexpr(self, ctx:decafParser.LiteralexprContext):
+        pass
+
+    # Exit a parse tree produced by decafParser#literalexpr.
+    def exitLiteralexpr(self, ctx:decafParser.LiteralexprContext):
+        pass
+
+
+    # Enter a parse tree produced by decafParser#factoexpr.
+    def enterFactoexpr(self, ctx:decafParser.FactoexprContext):
+        pass
+
+    # Exit a parse tree produced by decafParser#factoexpr.
+    def exitFactoexpr(self, ctx:decafParser.FactoexprContext):
+        pass
+
+
+    # Enter a parse tree produced by decafParser#opexpr.
+    def enterOpexpr(self, ctx:decafParser.OpexprContext):
+        pass
+
+    # Exit a parse tree produced by decafParser#opexpr.
+    def exitOpexpr(self, ctx:decafParser.OpexprContext):
+        pass
+
+
+    # Enter a parse tree produced by decafParser#methodexpr.
+    def enterMethodexpr(self, ctx:decafParser.MethodexprContext):
+        pass
+
+    # Exit a parse tree produced by decafParser#methodexpr.
+    def exitMethodexpr(self, ctx:decafParser.MethodexprContext):
+        pass
+
+
+    # Enter a parse tree produced by decafParser#locexpr.
+    def enterLocexpr(self, ctx:decafParser.LocexprContext):
+        pass
+
+    # Exit a parse tree produced by decafParser#locexpr.
+    def exitLocexpr(self, ctx:decafParser.LocexprContext):
+        pass
+
+
+    # Enter a parse tree produced by decafParser#corchexpr.
+    def enterCorchexpr(self, ctx:decafParser.CorchexprContext):
+        pass
+
+    # Exit a parse tree produced by decafParser#corchexpr.
+    def exitCorchexpr(self, ctx:decafParser.CorchexprContext):
+        pass
+
+
+    # Enter a parse tree produced by decafParser#p_arithexpr.
+    def enterP_arithexpr(self, ctx:decafParser.P_arithexprContext):
+        pass
+
+    # Exit a parse tree produced by decafParser#p_arithexpr.
+    def exitP_arithexpr(self, ctx:decafParser.P_arithexprContext):
         pass
 
 

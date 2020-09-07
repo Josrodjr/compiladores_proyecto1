@@ -17,11 +17,11 @@ struct A z;
 struct B m;
 
 void error(){
-	char c;
-	m.b[10] =5;
+    char c;
+	m.b[10] = 5;
 	b.c.a = 'c';
-	if (1) {a=4;} else {m=3;}
-	c = factorial(c);
+	if (1) { a = 4; } else { m = 3; }
+	c = factorial (c);
 	return m;
 }
 
@@ -74,7 +74,3 @@ void main()
 }
 
 }
-
-
-
-
